@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+#Kontakt {
+   
+}
+
+.wrapper{
+    width: 100%;
+  
+    height: 200px;
+    overflow: hidden;
+    mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 1) 20%,
+    rgba(0, 0, 0, 1) 80%,
+    rgba(0, 0, 0, 0)
+  );
+ background-color: white;
+ 
+}
+
+.cardlist{
+    display: flex;
+    width: 100%;
+    min-width: calc(var(--width) * var(--quantity));
+    position: relative;
+}
+.wrapper .cardlist .card{
+    width: var(--width);
+    height: var(--height);
+    position: absolute;
+    left: 100%;
+    transition: filter 0.5s;
+    animation: autoRun 10s linear infinite;
+   animation-delay: calc(10s * ((var(--position) - 1) / var(--quantity)))!important;
+ 
+}
+.wrapper .cardlist .card img{
+    width: 100%;
+   mix-blend-mode: multiply;
+}
+@keyframes autoRun {
+    from{
+        left: 100%;
+    }
+    to{
+        left: calc(var(--width) * -1);
+    }
+}
+.wrapper:hover .card{
+/*animation-play-state: paused!important;*/
+filter: grayscale(1);
+}
+.wrapper .card:hover {
+    filter: grayscale(0);
+}

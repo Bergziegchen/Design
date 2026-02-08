@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="stylefornavbar.css">
+<link rel="stylesheet" href="styleforheader.css">
+<link rel="stylesheet" href="styleforübermich.css">
+<link rel="stylesheet" href="styleforkontakt.css">
+<link rel="stylesheet" href="styleforslider2.css">
+</head>
+<body>
+
+<div class="overlay" aria-hidden="true"></div>
+
+<header>
+
+    
+
+    <nav aria-label="Hauptnavigation">
+     <div class="navline">
+        <button class="menu-button" aria-label="Menü öffen" aria-expanded="false" aria-controls="nav-content">       
+            <div class="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+          
+            </div>
+            <div class="button-sign"><h2>Menu</h2></div>
+        </button>
+      
+        
+        <div class="sign">
+            <h2>Nick Struß</h2>
+            <button id="contactBtn" onclick="document.getElementById('Kontaktinformationen').scrollIntoView({ behavior: 'smooth' });">
+    Kontakt anfragen!
+</button>
+        </div>
+        
+     </div>
+     
+        <div class="content" id="nav-content" inert>
+           <div class="menu-card">
+            <ul>
+                <li><h2>Navigation</h2></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#carousel-stage">Über mich</a></li>
+                <li><a href="#Kontaktinformationen">Kontakt</a></li>
+                
+            </ul>
+           </div>
+           <div class="menu-card">
+            <ul>
+                <li><h2>Über mich</h2></li>
+                <li><a href="#Kaiser">Kaiser</a></li>
+                <li><a href="#Musik">Musik</a></li>
+                <li><a href="#Landjugend">Landjugend</a></li>
+            </ul>
+           </div>
+           <div class="menu-card">
+            <section class="slider">
+            <div class="list">
+
+                <div class="item active">
+                    <div class="image" style=" --url: url('img/image4.jpeg')"></div>
+                    <div class="text"><h2>Willkommen auf meiner Webseite!</h2></div>
+                </div>
+ 
+                <div class="item">
+                    <div class="image" style=" --url: url('img/image2.jpeg')"></div>
+                    <div class="text"><h2>Willkommen auf meiner Webseite!</h2></div>
+                </div>
+               
+                <div class="item">
+                    <div class="image" style=" --url: url('img/image5.jpeg')"></div>
+                    <div class="text"><h2>Willkommen auf meiner Webseite!</h2></div>
+                </div>
+
+
+            </div>
+
+          
+         
+
+        </section>
+           </div>
+        </div>
+        
+        
+    </nav>
+     <div class="header-background"></div> <!-- Background-Glass-Effekt -->
+<div class="headertext animate">
+    <h2>Web<strong>design</strong> by Nick Struß!</h2>
+    <div class="p-container">
+        <p>So geht Webdesign!</p>
+        <p><a href="#carousel-stage">Über mich</a></p>
+    </div>
+</div>
+
+ </header>
+
+ <main>
+   <div class="wrapper" style="
+    --width: 200px;
+    --height: 50px;
+    --quantity: 5;
+    ">
+    <div class="cardlist">
+
+        <!-- Deine Bilder -->
+        <div class="card" style="--position: 1"><img src="img/liqui-moly-logo-png_seeklogo-84602.png"></div>
+        <div class="card" style="--position: 2"><img src="img/mann-filter-logo-png_seeklogo-217639.png"></div>
+        <div class="card" style="--position: 3"><img src="img/sonax-vector-logo-2022-small.png"></div>
+        <div class="card" style="--position: 4"><img src="img/images.png"></div>
+        <div class="card" style="--position: 5"><img src="img/Banner_Logo_white.jpg"></div>
+       
+
+    </div>
+</div>
+
+
+
+
+<section id="carousel-stage">
+
+    <div class="carousel-track">
+
+        <div class="carousel-panel">
+            <div class="carousel-circle" style="--img: url('img/image4.jpeg')"></div>
+            <div class="carousel-caption">
+                <h2>Ehrenamt Kaiser Wilhelm</h2>
+                <p>An meinen Wochenden arbeite ich ehrenamtlich als Heizer auf dem Raddampfer Kaiser Wilhelm.</p>
+                <p>Mehr dazu hier: <a href="#Kaiser">Kaiser Wilhelm</a></p>
+            </div>
+        </div>
+
+        <div class="carousel-panel is-active">
+            <div class="carousel-circle" style="--img: url('img/image2.jpeg')"></div>
+            <div class="carousel-caption">
+                <h2>Über mich!</h2>
+                <p>Moin! Mein Name ist Nick <br> Ich bin 18 Jahre alt und selbstständiger Webdesigner!
+                </p>
+                <p>Mehr dazu hier: <a href="#Musik">Musik</a></p>
+            </div>
+        </div>
+
+        <div class="carousel-panel">
+            <div class="carousel-circle" style="--img: url('img/image9.jpeg')"></div>
+            <div class="carousel-caption">
+                <h2>Mitarbeit <br> in der Landjugend</h2>
+                <p>Ich engagiere mich in meiner Freizeit in der Landjugend Radegast</p>
+                <p>Mehr dazu hier: <a href="#Landjugend">Landjugend</a></p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="carousel-controls">
+        <button class="carousel-prev"><img src="icon/arrow_back_24dp_C9C9C9_FILL0_wght400_GRAD0_opsz24.svg" alt=""></button>
+        <button class="carousel-next"><img src="icon/arrow_forward_24dp_C9C9C9_FILL0_wght400_GRAD0_opsz24.svg" alt=""></button>
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+    <section class="Kontakt">
+    <div id="Kontaktinformationen"></div>
+    <div id="Kontaktformular">
+    <h2 id="kontakt-heading">Kontaktformular</h2>
+
+    <form id="kontaktForm" aria-labelledby="kontakt-heading" novalidate>
+
+        <!-- CSRF Token -->
+        <input type="hidden" name="csrf" id="csrfToken">
+
+        <div class="group">
+            <label for="name">
+                Name <span aria-hidden="true">*</span>
+            </label>
+            <input type="text"
+                   id="name"
+                   name="name"
+                   required
+                   aria-required="true"
+                   autocomplete="name">
+        </div>
+
+        <div class="group">
+            <label for="email">
+                E-Mail <span aria-hidden="true">*</span>
+            </label>
+            <input type="email"
+                   id="email"
+                   name="email"
+                   required
+                   aria-required="true"
+                   autocomplete="email">
+        </div>
+
+        <div class="group">
+            <label for="message">
+                Nachricht <span aria-hidden="true">*</span>
+            </label>
+            <textarea id="message"
+                      name="message"
+                      required
+                      aria-required="true"></textarea>
+        </div>
+
+        <div class="group privacy-group">
+            <input type="checkbox"
+                   id="privacy"
+                   name="privacy"
+                   required
+                   aria-required="true">
+            <label for="privacy">
+                Ich akzeptiere die
+                <a href="datenschutz.html" target="_blank" rel="noopener">
+                    Datenschutzbestimmungen
+                </a>
+                <span aria-hidden="true">*</span>
+            </label>
+        </div>
+
+        <!-- Honeypot -->
+        <input type="text"
+               name="website"
+               tabindex="-1"
+               autocomplete="off"
+               aria-hidden="true"
+               class="honeypot">
+
+        <div class="group">
+            <label id="captchaLabel" for="captcha_input">
+                Sicherheitsfrage wird geladen …
+            </label>
+            <input type="number"
+                   id="captcha_input"
+                   name="captcha_input"
+                   required
+                   aria-required="true"
+                   inputmode="numeric"
+                   aria-live="polite">
+        </div>
+
+        <button type="submit" id="submitBtn">
+            Senden
+        </button>
+
+        <!-- Statusmeldungen -->
+        <div id="status-message"
+             role="status"
+             aria-live="polite"
+             tabindex="-1"></div>
+
+    </form>
+</div>
+</section>
+
+
+
+<section id="Kaiser" class="content-section">
+
+   <div class="section-heading"><h2>Kaiserfahrt 2025</h2></div>
+
+   <div class="slider2" role="region" aria-label="Interaktive Bildershow">
+    <div class="list2" aria-live="polite">
+        <div class="card2" role="group" aria-roledescription="Folie" aria-label="1 von 5">
+            <div class="image2" style="--url2: url('img/IMG_9881.jpg')" role="img" aria-label="Beschreibung Bild 1"></div>
+            <div class="text2"><h3>Auszug aus meinem Kaiserfahrt-Tagebuch</h3></div>
+        </div>
+
+        <div class="card2" role="group" aria-roledescription="Folie" aria-label="2 von 5">
+            <div class="image2" style="--url2: url('img/45804.JPG')" role="img" aria-label="Beschreibung Bild 2"></div>
+            <div class="text2"><h3>Maschine mit Petroleum beschmieren</h3></div>
+        </div>
+
+        <div class="card2" role="group" aria-roledescription="Folie" aria-label="3 von 5">
+            <div class="image2" style="--url2: url('img/image1.jpeg')" role="img" aria-label="Beschreibung Bild 3"></div>
+            <div class="text2"><h3>Skyline in Dresden</h3></div>
+        </div>
+
+        <div class="card2" role="group" aria-roledescription="Folie" aria-label="4 von 5">
+            <div class="image2" style="--url2: url('img/image4.jpeg')" role="img" aria-label="Beschreibung Bild 4"></div>
+            <div class="text2"><h3>Schornstein putzen in Dresden</h3></div>
+        </div>
+
+        <div class="card2" role="group" aria-roledescription="Folie" aria-label="5 von 5">
+            <div class="image2" style="--url2: url('img/image5.jpeg')" role="img" aria-label="Beschreibung Bild 5"></div>
+            <div class="text2"><h3>Zu Gast an Bord der Leipzig</h3></div>
+        </div>
+    </div>
+
+    <div class="dots-wrapper2">
+        <span class="dot2"></span>
+        <span class="dot2"></span>
+        <span class="dot2"></span>
+        <span class="dot2"></span>
+        <span class="dot2"></span>
+    </div>
+
+    <div class="button-wrapper2">
+        <button class="prev2" aria-label="Vorherige Karte"></button>
+        <button class="next2" aria-label="Nächste Karte"></button>
+    </div>
+</div>
+</section>
+
+
+
+
+ </main>
+
+ 
+   <script type="module" src="js/navbar.js" defer></script>
+   <script type="module" src="js/kontaktform.js" defer></script>
+   <script type="module" src="js/slider2.js" defer></script>
+   <script type="module" src="js/übermich.js" defer></script>
+   <script src="app.js"></script>
+   
+
+</body>
+</html>

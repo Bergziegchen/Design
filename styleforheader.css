@@ -1,0 +1,216 @@
+:root {
+    --header-color: #2d6a4f;
+    --h2-color: #005fcc;
+    --text-color: #ffffff;
+    --accent-color2:  linear-gradient(135deg, #fff 0%, #94a3b8 100%);;
+    --glass-bg: rgba(255, 255, 255, 0.12); /* leichte Transparenz für Glass-Effekt */
+    --glass-border: rgba(255, 255, 255, 0.25);
+    --transition-smooth: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* --- Header Grund --- */
+header {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+   background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(79, 70, 229, 0.15) 0px, transparent 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    
+}
+
+/* --- Hintergrund-Glass --- */
+.header-background {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    z-index: 1;
+    background-image: url(icon/ChatGPT\ Image\ 2.\ Feb.\ 2026\,\ 11_25_14.png);
+    mix-blend-mode: multiply;
+    background-position: top;
+    background-size: cover;
+    
+    
+}
+/* --- Headertext Container --- */
+.headertext{
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    column-gap: 5rem;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    opacity: 0;
+    transform: translateY(-40px);
+    transition: opacity 1s ease, transform 1s ease;
+   
+}
+
+/* Animation sichtbar */
+.headertext.animate {
+    opacity: 1;
+    transform: translateY(0);
+    
+}
+
+/* --- H2 links --- */
+.headertext h2 {
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    line-height: 0.9;
+    color: var(--accent-color2);
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    line-height: 1.15em;
+    margin: 0;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: transform 0.8s ease-out 0.2s, opacity 0.8s ease-out 0.2s;
+    
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 35px;
+    background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    background-clip: transparent;
+    -webkit-text-fill-color: transparent;
+
+    animation: slideInRight 1s ease-out forwards;
+}
+
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-30em);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.headertext h2 strong {
+    /* Hebt den Transparenz-Effekt des h2 auf */
+    -webkit-text-fill-color: initial; 
+    
+    /* Deine gewünschte Farbe */
+    color: #FF5733; 
+    
+    /* Optional: Falls der Verlauf auch hier weg soll */
+    background: none; 
+}
+.headertext.animate h2 {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* --- P-Container rechts --- */
+.headertext .p-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* --- P-Tags Glassmorphism --- */
+.headertext .p-container p {
+    margin: 0;
+    padding: 1.25rem 2.25rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    color: var(--text-color);
+    line-height: 1.5;
+    font-size: 1.5rem;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    width: fit-content;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: var(--transition-smooth);
+}
+
+/* Animation der P-Tags */
+.headertext.animate .p-container p:nth-child(1) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s;
+}
+.headertext.animate .p-container p:nth-child(2) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.7s;
+}
+
+/* Hover */
+.headertext.animate .p-container p:hover {
+    transform: translateX(10px) translateY(-2px);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: var(--accent-color);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* Links im P-Tag */
+.headertext .p-container p a {
+    color: var(--accent-color);
+    font-weight: 700;
+    text-decoration: none;
+    position: relative;
+}
+
+.headertext .p-container p a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+.headertext .p-container p a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* --- Mobile --- */
+@media (max-width: 767px) {
+    .headertext {
+        display: flex;           /* flex statt grid */
+        flex-direction: column;  /* stapeln */
+        align-items: center;     /* horizontal zentrieren */
+        text-align: center;      /* Text zentrieren */
+        width: 100%;             /* volle Breite */
+        max-width: 90%;          /* optional: max-Breite */
+        margin: 0 auto;          /* mittig auf Seite */
+        gap: 2rem;               /* Abstand zwischen h2 und p-container */
+    }
+
+    .headertext h2 {
+        transform: translateX(0); /* alte Grid-Offset entfernen */
+        letter-spacing: -1px;
+        line-height: 1;
+    }
+
+    .headertext .p-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;     /* P-Tags zentrieren */
+        gap: 1.5rem;
+    }
+}

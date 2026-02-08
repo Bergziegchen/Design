@@ -1,0 +1,344 @@
+
+
+:root{
+    --circle-size: 1400px;
+    
+    --sign-color: rgb(28, 77, 28);
+}
+
+section#carousel-stage{
+    position: relative;
+    width: 100%;
+    height: 110vh;
+    background-color: var(--background-color);
+    overflow: hidden;
+}
+/* Die Animation wird jetzt nur abgespielt, wenn die Klasse 'animate' vorhanden ist */
+.carousel-track.animate::after {
+    animation: showModel 1s ease-in-out forwards;
+}
+
+
+.carousel-track::after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    width: min(1000px, 100vw);
+    height: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-image: var(--track-bg, url('img/Weihnachtskonzert.png'));
+    background-size: cover;
+    background-position: top;
+    pointer-events: none;
+   
+    /* Hier keine feste Animation mehr! */
+    z-index: 7;
+}
+
+@keyframes showModel {
+    from {
+        transform: translateX(-50%) scale(1.3) translateY(88px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(-50%) scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+@media (max-width: 767px){
+    .carousel-track::after{
+        bottom: -15%;
+    }
+}
+
+/* Slides */
+.carousel-track .carousel-panel{
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Hauptkreis */
+.carousel-panel .carousel-circle{
+    position: absolute;
+    width: var(--circle-size);
+    height: var(--circle-size);
+
+    background-image: var(--img);
+    background-size: var(--circle-size) var(--circle-size);
+    background-position: center;
+
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-60deg);
+
+    transition: 1s;
+    filter: blur(30px);
+    opacity: 0;
+}
+
+/* Innere Kreise */
+.carousel-circle::before,
+.carousel-circle::after{
+    content: '';
+    position: absolute;
+    inset: 50%;
+    transform: translate(-50%, -50%) rotate(-120deg);
+    border-radius: 50%;
+
+    background-image: var(--img);
+    background-size: var(--circle-size) var(--circle-size);
+    background-position: center;
+
+    transition: 1s;
+}
+
+/* mittlerer Kreis */
+.carousel-circle::before{
+    width: 70%;
+    height: 70%;
+    background-image:
+        linear-gradient(
+            to bottom right,
+            rgba(0,0,0, 0),
+            rgba(0,0,0, 0)
+        ),
+        var(--img);
+}
+
+/* innerster Kreis */
+.carousel-circle::after{
+    width: 30%;
+    height: 30%;
+    transform: translate(-50%, -50%) rotate(-170deg);
+}
+
+/* Active State */
+.carousel-panel.is-active .carousel-circle{
+    transform: translate(-50%, -50%) rotate(0);
+    filter: blur(0);
+    opacity: 1;
+}
+
+.carousel-panel.is-active .carousel-circle::before,
+.carousel-panel.is-active .carousel-circle::after{
+    transform: translate(-50%, -50%) rotate(0);
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 50%; /* Auf 50% setzen für echte vertikale Mitte */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    display: grid;
+    /* Damit es mittig wirkt, probiere 1fr 1fr oder justiere die Spalten */
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: auto auto; 
+    
+    column-gap: 40px; /* Etwas weniger Abstand hilft oft bei der Zentrierung */
+    align-items: center; 
+    justify-content: center; /* ZENTRIERT das Grid-System selbst */
+    
+    width: 95%; /* Etwas mehr Platz geben */
+    max-width: 1400px;
+    z-index: 10;
+}
+
+.carousel-caption h2 {
+    /* Das H2 streckt sich über beide Zeilen der ersten Spalte */
+    grid-column: 1;
+    grid-row: 1 / 3; 
+    
+    font-size: clamp(4.5rem, 10vw, 10rem);
+    font-family: 'Bebas Neue', sans-serif;
+    line-height: 0.9;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: all 0.8s ease-out;
+   
+      /* Hebt den Transparenz-Effekt des h2 auf */
+    -webkit-text-fill-color: initial; 
+    
+    /* Deine gewünschte Farbe */
+    color: #FF5733; 
+    
+    /* Optional: Falls der Verlauf auch hier weg soll */
+    background: none; 
+}
+
+.carousel-caption p {
+    /* Die p-Tags werden automatisch in Spalte 2 untereinander platziert */
+    grid-column: 2; 
+    font-size: clamp(2rem, 2.5vw, 1.5rem);
+    margin: 0;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    color: var(--text-color);
+}
+
+/* --- Individuelle Animation für die Texte --- */
+
+/* --- Basis-Styles für die Animation (Default-Zustand) --- */
+.carousel-caption h2, 
+.carousel-caption p {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.8s ease-out;
+}
+
+/* --- Aktivierung durch .is-active --- */
+.carousel-panel.is-active .carousel-caption h2 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 1), 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.carousel-panel.is-active .carousel-caption p:nth-of-type(1) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s;
+}
+
+.carousel-panel.is-active .carousel-caption p:nth-of-type(2) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.7s;
+}
+
+/* --- Styling der p-Tags (Rechte Seite / Glaseffekt) --- */
+.carousel-caption p {
+    background: rgba(0, 0, 0, 0.2); 
+    backdrop-filter: blur(5px);
+    padding: 10px 20px;
+    border-radius: 8px;
+    width: fit-content;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    position: relative; /* Wichtig für absolute Positionierung von Linien */
+}
+
+/* --- Der Hover-Effekt für die Links in den p-Tags --- */
+.carousel-caption p a {
+    color: var(--accent-color);
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+     font-size: clamp(1.5rem, 2.5vw, 1.5rem);
+    
+    /* Die animierte Linie (aus deinem menu-card Code) */
+    background-image: linear-gradient(var(--hover-color), var(--hover-color));
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 0% 2px;
+    transition: background-size 0.4s ease;
+}
+
+.carousel-caption p a:hover {
+    background-size: 100% 2px;
+}
+
+.carousel-caption p a:not(:hover) {
+    background-size: 0% 2px;
+    background-position: right bottom;
+}
+
+/* --- Statische Trennlinie am unteren Rand des p-Tags (Optional) --- */
+/* Falls du die durchgehende accent-color Linie aus dem Menü willst: */
+.carousel-caption p::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20px; /* An das Padding angepasst */
+    width: calc(100% - 40px);
+    height: 1px;
+    background-color: var(--accent-color);
+    opacity: 0.5;
+}
+
+/* --- Mobile Anpassung --- */
+@media (max-width: 900px) {
+    .carousel-caption {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        text-align: center;
+        gap: 20px;
+        top: 35%;
+    }
+    
+    .carousel-caption h2 {
+        grid-row: 1;
+    }
+    
+    .carousel-caption p {
+        grid-column: 1;
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+        margin: 0 auto; /* Zentriert die Boxen im mobilen Grid */
+    }
+}
+
+/* Barrierefreiheit */
+.carousel-caption p a:focus-visible {
+    outline: 3px solid #005fcc;
+    outline-offset: 3px;
+}
+
+
+.carousel-controls{
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    height: 4em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.carousel-controls button{
+    width: 6em;
+    margin: 0 20%;
+    background-color: var(--background-color);
+    border: none;
+    border-radius: 50%;
+}
+@media (max-width: 767px){
+   .carousel-controls button{
+    width: 8em!important;
+    margin: 0 17%;
+   }
+}
+.carousel-controls button:hover{
+    background-color: var(--accent-color);
+}
+.carousel-track .carousel-panel {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    
+    /* HIER ERGÄNZEN: */
+    pointer-events: none; /* Macht die Slide für Klicks unsichtbar */
+    z-index: 1;           /* Legt sie nach hinten */
+}
+.carousel-panel.is-active {
+    /* HIER ERGÄNZEN: */
+    pointer-events: auto; /* Klicks auf Links/Buttons wieder erlauben */
+    z-index: 5;           /* Höher als die inaktiven Panels */
+}
+.carousel-controls {
+    /* ... dein Code ... */
+    z-index: 100;         /* Sicherstellen, dass die Buttons über allem liegen */
+    position: absolute;   /* Falls noch nicht gesetzt */
+}
+
+.carousel-controls button {
+    pointer-events: auto; /* Falls sie vorher blockiert wurden */
+}

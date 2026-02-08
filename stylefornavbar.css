@@ -1,0 +1,620 @@
+/*--------------------------
+Grundkonfiguration
+--------------------------*/
+
+
+:root{
+    --primary-color: #005fcc;
+    --background-color: rgb(39, 37, 37);
+    --accent-color: rgb(30, 30, 28);
+    --text-color: aliceblue;
+    --hover-color: rgb(207, 207, 32);
+    --card-color: rgb(82, 78, 78);
+    
+
+    --navbar-width: 40%;
+    --navbar-height: 5em;
+
+    --opened-navbar-width: 95%;
+    --opened-navbar-height: 50em;
+
+    --navbar-margin: 2em;
+    --mobile-opened-navbar-margin: 2em;
+    --menu-card-margin: 2em;
+
+    --navbar-border-radius: 0.5em;
+    --navbar-button-top: 1em;
+
+    --diameter: 1432px;
+}
+
+@view-transition {
+  navigation: auto;
+}
+.page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background-color); /* Deine Hintergrundfarbe */
+    z-index: 999999; /* Über allem, außer vielleicht der Nav */
+    pointer-events: none;
+    transition: opacity 3s ease;
+}
+
+/* Wenn die Seite geladen ist, wird das Overlay unsichtbar */
+body.loaded .page-transition-overlay {
+    opacity: 0;
+}
+
+html{
+    font-family: sans-serif;
+    background-color: rgb(237, 218, 218);
+    transition: 0.5s;
+}
+
+body{
+    min-height: 100vh;
+    min-height: 100dvh;
+    
+}
+
+/*--------------------------
+Overlay & Nav Basis
+--------------------------*/
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+    z-index: 9;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+    height: var(--navbar-height);
+    width: var(--navbar-width);
+    border-radius: var(--navbar-border-radius);
+    transition: 0.5s ease;
+    margin: 2em 0 0 0;
+    max-width: 100%;
+    overflow: hidden;
+    background-color: var(--background-color);
+    transform: translateY(-8em);
+}
+
+@media (max-width:767px){
+    nav{
+       height: 4em;
+       margin: var(--navbar-margin);
+    }
+}
+
+/* Sofort-Zustand für die neue Seite */
+nav.is-pre-opened {
+    width: var(--opened-navbar-width);
+    height: var(--opened-navbar-height);
+    margin: var(--mobile-opened-navbar-margin);
+    border-radius: var(--navbar-border-radius);
+    transform: translateY(0);
+    opacity: 1;
+    animation: none !important; /* Wichtig: keine Start-Animation */
+}
+
+/* Verhindert das Drehen beim Laden der neuen Seite */
+nav.is-pre-opened .menu-button .bar:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+}
+nav.is-pre-opened .menu-button .bar:nth-child(2) { 
+    opacity: 0; 
+}
+nav.is-pre-opened .menu-button .bar:nth-child(3) {
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+}
+/*--------------------------
+Animationen
+--------------------------*/
+@keyframes openNav{
+    0%{
+      width: var(--navbar-width);
+      height: var(--navbar-height);
+      margin: var(--navbar-margin);
+    }
+    50%{
+      width: 95%;
+      height: var(--navbar-height);
+    }
+    100%{
+      width: var(--opened-navbar-width);
+      height: var(--opened-navbar-height);
+      margin: var(--mobile-opened-navbar-margin);
+      border-radius: var(--navbar-border-radius);
+    }
+}
+
+nav.open{
+    animation: openNav 0.8s forwards;
+}
+
+@keyframes closeNav{
+    0%{
+      width: var(--opened-navbar-width);
+      height: var(--opened-navbar-height);
+      margin: var(--mobile-opened-navbar-margin);
+      border-radius: var(--navbar-border-radius);
+    }
+    50%{
+      width: 95%;
+      height: var(--navbar-height);
+    }
+    100%{
+      width: var(--navbar-width);
+      height: var(--navbar-height);
+      margin: var(--navbar-margin);
+    }
+}
+
+nav.close{
+    animation: closeNav 0.8s;
+}
+
+/*--------------------------
+Navline (Header-Bereich im Nav)
+Kollisionsschutz durch Flexbox
+--------------------------*/
+.navline{
+    position: absolute;
+    width: 100%;
+    height: 5em;
+    top: 0;
+    left: 0;
+    display: flex; /* Nutzt Flexbox statt Absolute für Kinder */
+    align-items: center;
+    justify-content: space-between; 
+    padding: 0 1em;
+}
+
+@media (max-width: 767px){
+    .navline{
+        height: 4em;
+    }
+}
+
+/*--------------------------
+Menu Button
+--------------------------*/
+nav .menu-button{
+    position: relative; /* Von absolute auf relative geändert */
+    z-index: 5;
+    background-color: var(--background-color);
+    border: none;
+    width: 9em;
+    height: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+    flex-shrink: 0; /* Verhindert, dass der Button schrumpft */
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .menu-button:hover {
+        background-color: rgb(48, 48, 48);
+    }
+}
+
+.menu-button .hamburger{
+    position: absolute;
+    left: 0.5em;
+    height: 100%;
+    width: 40%;
+}
+
+@media (max-width: 767px){
+    .menu-button{
+        height: 3.5em!important;
+        width: 9em!important;
+    }
+}
+
+.hamburger .bar{
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: aliceblue;
+    transition: 0.2s;
+}
+.bar:nth-child(1){ top: 25%; transform: translateY(-50%); }
+.bar:nth-child(2){ top: 50%; transform: translateY(-50%); }
+.bar:nth-child(3){ top: 75%; transform: translateY(-50%); }
+
+.menu-button.active .bar:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+}
+.menu-button.active .bar:nth-child(2) { opacity: 0; }
+.menu-button.active .bar:nth-child(3) {
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+}
+
+.menu-button .button-sign{
+    position: absolute;
+    width: 50%;
+    left: 50%;
+    color: var(--primary-color);
+}
+
+/*--------------------------
+Sign (Logo / Titel)
+--------------------------*/
+nav div.sign {
+    position: relative; /* Von absolute auf relative geändert */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-grow: 1; /* Nimmt verfügbaren Platz ein, drückt aber nicht über den Button */
+    background-color: var(--background-color);
+    overflow: hidden;
+    flex-wrap: nowrap;
+    min-width: 0; /* Verhindert Überlauf in Flex-Containern */
+    margin-right: 0;
+}
+
+.sign img{
+    position: absolute;
+    width: auto;
+    height: 100%;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    right: 0;
+    
+   
+}
+.sign button {
+    position: absolute;
+    width: auto;
+    height: 80%;
+    right: 0.4em;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 8px;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.sign button:hover {
+    background-color: var(--background-color);
+    color: var(--hover-color);
+}
+
+.sign h2 {
+    position: absolute;
+    font-size: 2em;
+    opacity: 1;
+    color: aliceblue;
+    left: 0;
+   
+    transition: opacity 0.3s ease, transform 0.4s ease;
+    white-space: nowrap;
+    display: none;
+}
+
+
+
+@media (max-width:767px) {
+    .sign{
+        flex-grow: 2; /* Gibt dem Logo auf Mobile mehr Priorität */
+    }
+    .sign h2{
+        font-size: 1.5em;
+    }
+    .sign button{
+        width: 7em;
+    }
+}
+
+/*--------------------------
+Nav Content (Menu Cards)
+--------------------------*/
+nav .content{
+    position: absolute;
+    top: var(--navbar-height);
+    height: calc(100% - var(--navbar-height));
+    width: 100%;
+    border-top: 1px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1em;
+    transition: 0.5s;
+}
+
+.menu-card{
+    position: relative;
+    width: calc(var(--opened-navbar-width) / 3);
+    height: 70%;
+    border-radius: 3em;
+    background-color: var(--card-color);
+}
+
+.menu-card:nth-child(2){
+    background-color: var(--background-color);
+  
+}
+.menu-card:nth-child(3){
+    
+   
+    background-color: var(--background-color);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70%;
+    width: calc(var(--opened-navbar-width) / 3);
+  
+}
+
+@media(max-width:1250px){
+    .menu-card:nth-child(3){ 
+       display: none;
+    
+    }
+    .menu-card{ width: calc(var(--opened-navbar-width) / 2); }
+}
+
+@media(max-width:767px){
+    nav .content{
+        flex-direction: column;
+        top: 4em;
+        height: calc(100% - 2em);
+    }
+    .menu-card{
+         width: calc(var(--opened-navbar-width) - 10% );
+         height: 40%;
+    }
+    
+}
+
+.menu-card ul{
+    position: absolute;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    margin: 2em;
+    width: calc(100% - (var(--menu-card-margin) * 2));
+}
+
+.menu-card ul li{
+    position: relative;
+    width: 100%;
+}
+
+.menu-card ul li::after{
+    content: '';
+    position: absolute;
+    bottom: -1em;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--accent-color);
+}
+
+.menu-card ul li a {
+    font-size: 2.5em;
+    text-decoration: none;
+    color: var(--text-color);
+    background-image: linear-gradient(var(--hover-color), var(--hover-color));
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 0% 2px;
+    transition: background-size 0.4s ease;
+}
+
+.menu-card ul li a:hover {
+    background-size: 100% 2px;
+}
+
+.menu-card ul li a:not(:hover) {
+    background-size: 0% 2px;
+    background-position: right bottom;
+}
+.menu-card ul li h2 {
+     font-size: 32px;
+    font-weight: 800;
+    text-align: center;
+    background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+@media (max-width: 767px){
+    .menu-card ul li a { font-size: 1.5em; }
+    .menu-card ul li h2 { font-size: 20px; }
+    
+}
+
+
+/*--------------------------
+Focus (Barrierefreiheit)
+--------------------------*/
+
+/* 1. Dein bestehender Style für Tastatur-Nutzer */
+:focus-visible {
+    outline: 3px solid #005fcc;
+    outline-offset: 3px;
+}
+
+/* 2. Den Rahmen für Maus-Klicks explizit entfernen */
+/* Wenn das Element fokussiert ist, aber NICHT via :focus-visible (also per Maus) */
+:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+}
+
+/* 3. Speziell für Mobilgeräte (blauer Schatten beim Tippen) */
+.menu-button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Verhindert den Rahmen, wenn der Fokus per Skript (JS) oder Maus gesetzt wird */
+.menu-button:focus:not(:focus-visible) {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Optional: Falls du einen Browser nutzt, der focus-visible noch nicht perfekt trennt */
+.menu-button {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+
+
+
+
+
+
+section.slider{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color);
+    border-radius: 50%;
+}
+section .list .item{
+    position: absolute;
+    inset: 0 0 0 0;
+   
+    display: flex;
+   justify-content: center;
+   align-items: center;
+   overflow: hidden;
+   border-radius: 50%;
+   
+}
+.item text{
+
+}
+.item .image{
+    position: absolute;
+    width: var(--diameter);
+    height: var(--diameter);
+
+    /* WICHTIG: fixer Bildraum */
+    background-image: var(--url);
+    background-size: var(--diameter) var(--diameter);
+    background-position: center;
+
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-60deg);
+
+    transition: 1s;
+    overflow: hidden;
+  
+}
+
+/* === innere Kreise === */
+.item .image::before,
+.item .image::after{
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-120deg);
+
+    border-radius: 50%;
+
+    /* gleicher Bildraum wie Hauptbild */
+    background-image: var(--url);
+    background-size: var(--diameter) var(--diameter);
+    background-position: center;
+
+    transition: 1s;
+    
+    
+}
+
+/* mittlerer Kreis */
+/* mittlerer Kreis – leicht abgedunkelt */
+.item .image::before{
+    width: 70%;
+    height: 70%;
+
+    background-image:
+        linear-gradient(
+            to bottom right,
+            rgba(0, 0, 0, 0),
+            rgba(0, 0, 0, 0)
+        ),
+        var(--url);
+
+    background-size: var(--diameter) var(--diameter);
+    background-position: center;
+
+    transform: translate(-50%, -50%) rotate(-120deg);
+}
+
+
+/* innerster Kreis */
+.item .image::after{
+    width: 30%;
+    height: 30%;
+    transform: translate(-50%, -50%) rotate(-170deg);
+}
+.slider .item .image{
+    filter: blur(30px);
+    opacity: 0;
+}
+
+.slider .item.active .image{
+    transform: translate(-50%, -50%) rotate(0deg);
+    filter: blur(0);
+    opacity: 1;
+}
+
+.slider .item.active .image::before,
+.slider .item.active .image::after{
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+
+.item .text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    width: 50%;
+    height: 50%;
+    text-align: center;
+    color: wheat;
+
+    opacity: 0;
+    pointer-events: none;
+    border: 2px solid red;
+   
+}
+
