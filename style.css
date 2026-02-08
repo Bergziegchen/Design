@@ -7,6 +7,8 @@
 }
 html {
   scroll-behavior: smooth;
+  overflow-y: scroll; /* Erzwingt die vertikale Scrollleiste */
+  scrollbar-gutter: stable; /* Reserviert den Platz für die Leiste (moderner Ansatz) */
 }
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -67,4 +69,5 @@ filter: grayscale(1);
 }
 .wrapper .card:hover {
     filter: grayscale(0);
+
 }
